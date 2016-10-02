@@ -1,15 +1,14 @@
 import React from 'react';
 
 // Strike out text if marked as complete
-// todo.get('') method call instead of property access for immutable
 export function Todo(props) {
-	const { todo } = props;
+  const { todo } = props;
 
-	if(todo.isDone) {
-		return <strike>{todo.text}</strike>;
-	} else {
-		return <span>{todo.text}</span>;
-	}
+  if(todo.isDone) {
+    return <strike>{todo.text}</strike>;
+  } else {
+    return <span>{todo.text}</span>;
+  }
 }
 
 // container component for todolist
@@ -28,22 +27,23 @@ export function TodoList(props) {
 		}
 	}
 
-	const toggleClick = id => event => toggleTodo(id);
-
-	return (
-		<div className="todo">
-			<input 
-				type='text' 
-				placeholder='add todo' 
-				className='todo__entry'
-				onKeyDown={onSubmit} />
-			<ul className="todo__list">
-				{todos.map(t => (
-					<li key={t.get('id')} className='todo__item'>
-						<Todo todo={t.toJS()} />
-					</li>
-				))}
-			</ul>
-		</div>
-	)
+  const toggleClick = id => event => toggleTodo(id);
+// todo.get('') method call instead of property access for immutable?
+  return (
+    <div className='todo'>
+      <input type='text'
+             className='todo__entry'
+             placeholder='Add todo'
+             onKeyDown={onSubmit} />
+      <ul className='todo__list'>
+        {todos.map(t => (
+          <li key={t.get('id')}
+              className='todo__item'
+              onClick={toggleClick(t.get('id'))}>
+            <Todo todo={t.toJS()} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }

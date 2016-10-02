@@ -2,8 +2,8 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { TodoList } from './containers';
 import reducer from './reducer';
+import { TodoList } from './containers';
 
 // import { List, Map } from 'immutable';
 // immutable dummy data for now
@@ -17,12 +17,9 @@ import reducer from './reducer';
 
 const store = createStore(reducer);
 
-// renders main page
 render(
-	<Provider store={store}>
-		<TodoList />
-	</Provider>,
-
-	// render into app
-	document.getElementById('app')
+  <Provider store={store}>
+    <TodoList />
+  </Provider>,
+  document.getElementById('app')
 );
