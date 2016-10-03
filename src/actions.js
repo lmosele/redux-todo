@@ -1,3 +1,4 @@
+// quick uniqueID hack
 const uid = () => Math.random().toString(34).slice(2);
 
 export function addTodo(text) {
@@ -8,6 +9,14 @@ export function addTodo(text) {
       isDone: false,
       text: text
     }
+  };
+}
+
+export function removeTodo(id) {
+  console.log('ID ', id)
+  return {
+    type: 'REMOVE_TODO',
+    payload: id
   };
 }
 

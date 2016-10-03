@@ -1,4 +1,7 @@
 // webpack bundle settings
+// 
+// TODO 
+// add source map
 module.exports = {
   entry: './src/app.js',
   output: {

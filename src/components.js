@@ -13,7 +13,7 @@ export function Todo(props) {
 
 // container component for todolist
 export function TodoList(props) {
-	const { todos, toggleTodo, addTodo } = props;
+	const { todos, toggleTodo, addTodo, removeTodo } = props;
 
 	const onSubmit = (event) => {
 		const input = event.target;
@@ -27,23 +27,51 @@ export function TodoList(props) {
 		}
 	}
 
+	const deleteTodo = id => event => removeTodo(id);
   const toggleClick = id => event => toggleTodo(id);
-// todo.get('') method call instead of property access for immutable?
+
+  console.log(todos)
+
   return (
     <div className='todo'>
       <input type='text'
-             className='todo__entry'
+             className='todo-entry'
              placeholder='Add todo'
              onKeyDown={onSubmit} />
-      <ul className='todo__list'>
-        {todos.map(t => (
+      
+      <ul className='todo-list'>
+        {todos.map((t, k) => (
+          
           <li key={t.get('id')}
-              className='todo__item'
+              className='todo-item'
               onClick={toggleClick(t.get('id'))}>
+            
             <Todo todo={t.toJS()} />
+            
+            <button onClick={deleteTodo(t.get('id'))}>remove mee</button>
           </li>
-        ))}
+        )).toArray()}
       </ul>
     </div>
   );
 }
+
+// {todos.keys().size && todos.keys().map(key => (<li key={key}>{key}</li>))}
+
+// {
+//   {todos.keys().map(([key, value]) => {
+//     console.log(value)
+//     return (<li key={key}>{value.get('text')}</li>)
+//   })}  
+// }
+
+// {
+//   {todos.map((t, k) => (
+//     <li key={k}
+//         className='todo-item'
+//         onClick={toggleClick(t.get('id'))}>
+//       <Todo todo={t.toJS()} />
+//       <button key={t.get('id')} onClick={deleteTodo(t.get('id'))}>remove mee</button>
+//     </li>
+//   )).toArray()}
+// }
